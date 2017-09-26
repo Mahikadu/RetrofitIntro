@@ -40,7 +40,7 @@
         android:id="@+id/moviebtnlayout"
         android:layout_width="match_parent"
         android:layout_below="@+id/btnlayout"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_margin="2dp"
         android:gravity="center"

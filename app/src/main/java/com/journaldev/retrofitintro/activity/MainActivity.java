@@ -93,6 +93,78 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        popular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                APIInterface apiService =
+                        APIClient.getClient().create(APIInterface.class);
+
+                Call<MoviesResponse> call = apiService.getPopularMovies(API_KEY);
+                call.enqueue(new Callback<MoviesResponse>() {
+                    @Override
+                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+                        int statusCode = response.code();
+                        List<Movie> movies = response.body().getResults();
+                        recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e(TAG, t.toString());
+                    }
+                });
+            }
+        });
+
+        upcoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                APIInterface apiService =
+                        APIClient.getClient().create(APIInterface.class);
+
+                Call<MoviesResponse> call = apiService.getUpcomingMovies(API_KEY);
+                call.enqueue(new Callback<MoviesResponse>() {
+                    @Override
+                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+                        int statusCode = response.code();
+                        List<Movie> movies = response.body().getResults();
+                        recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e(TAG, t.toString());
+                    }
+                });
+            }
+        });
+
+        nowplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                APIInterface apiService =
+                        APIClient.getClient().create(APIInterface.class);
+
+                Call<MoviesResponse> call = apiService.getNowplayingMovies(API_KEY);
+                call.enqueue(new Callback<MoviesResponse>() {
+                    @Override
+                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+                        int statusCode = response.code();
+                        List<Movie> movies = response.body().getResults();
+                        recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e(TAG, t.toString());
+                    }
+                });
+            }
+        });
+
         recyclerView.addOnItemTouchListener(
                 new MyRecyclerItemClickListener(this, new MyRecyclerItemClickListener.OnItemClickListener() {
                     @Override
